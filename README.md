@@ -20,6 +20,8 @@ I then used the following command to display all files, including hidden files, 
 ls -la
 ```
 
+![Intial Permissions](images/initial-permission.png)
+
 The `ls` command lists directory contents.
 
 The options mean:
