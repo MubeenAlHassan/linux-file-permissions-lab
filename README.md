@@ -381,6 +381,9 @@ After making the changes, I verified the permissions again using:
 ls -la
 ```
 
+![Final Permissions](images/final-permission.png)
+
+
 The expected permissions are approximately:
 
 ```text
