@@ -328,6 +328,8 @@ The `projects` directory also contains the following subdirectory:
 drafts
 ```
 
+![Drafts Directory](images/chmod-changes.png)
+
 Its initial permissions were:
 
 ```text
