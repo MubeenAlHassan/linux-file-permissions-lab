@@ -1,16 +1,31 @@
-# File Permissions in Linux
+# 🔐 Linux File Permissions Lab
 
-## Project description
+<div align="center">
 
-In this project, I examined and modified Linux file and directory permissions for a research team to ensure the principle of least privilege. Using commands like `ls -la` and `chmod`, I inspected and removed unauthorized access to improve the security of sensitive research files.
+![Linux](https://img.shields.io/badge/Linux-File%20Permissions-1793D1?logo=linux&logoColor=white)
+![Security](https://img.shields.io/badge/Security-Access%20Control-4EAA25)
+![chmod](https://img.shields.io/badge/Tools-chmod%20%7C%20ls%20-la-FFB000)
 
----
+</div>
 
-## Modifying File and Directory Permissions
+This project demonstrates how to review and tighten Linux access permissions to enforce the principle of least privilege. It focuses on protecting sensitive files and directories by adjusting owner, group, and other permissions using standard Unix commands such as `ls -la` and `chmod`.
 
-The project required updating permissions in the `/home/researcher2/projects` directory. The initial permissions were:
+## Overview
 
-![Intial Permissions](images/initial-permission.png)
+A research team needed restricted access to files in `/home/researcher2/projects`. The goal was to ensure that only authorized users could read or modify specific files while preventing unnecessary access to sensitive research data.
+
+## Objectives
+
+- Inspect current file and directory permissions
+- Remove unauthorized access where needed
+- Restrict write and execute permissions to the minimum required
+- Validate the final permission state with `ls -la`
+
+## Initial Permission State
+
+The initial permissions were:
+
+![Initial Permissions](images/initial-permission.png)
 
 ```text
 drwx--x--- drafts
@@ -21,47 +36,55 @@ drwx--x--- drafts
 -rw--w---- .project_x.txt
 ```
 
-### Changes Applied
+## Changes Applied
 
-1. **`project_k.txt`**  
-   Removed write permission from `other` users to prevent unauthorized modifications:
-   ```bash
-   chmod o-w project_k.txt
-   ```
-   *Final Permissions:* `-rw-rw-r--`
+### 1) `project_k.txt`
 
-2. **`project_m.txt`**  
-   Restricted access to only the owner by removing group read permissions:
-   ```bash
-   chmod g-r project_m.txt
-   ```
-   *Final Permissions:* `-rw-------`
+Removed write access for `other` users to prevent unauthorized modification:
 
-3. **`.project_x.txt` (Hidden file)**  
-   Removed write access from user and group, and added read access to the group for this archived file:
-   ```bash
-   chmod u-w,g-w,g+r .project_x.txt
-   ```
-   *Final Permissions:* `-r--r-----`
+```bash
+chmod o-w project_k.txt
+```
 
-4. **`drafts` (Directory)**  
-   Removed execute permission from the group to restrict directory access to the owner only:
-   ```bash
-   chmod g-x drafts
-   ```
-   *Final Permissions:* `drwx------`
+Final permission: `-rw-rw-r--`
 
-![Drafts Directory](images/chmod-changes.png)
+### 2) `project_m.txt`
 
----
+Restricted access so only the owner retains access by removing the group read permission:
+
+```bash
+chmod g-r project_m.txt
+```
+
+Final permission: `-rw-------`
+
+### 3) `.project_x.txt`
+
+Removed write access for both the user and group, while granting read access to the group for this archived file:
+
+```bash
+chmod u-w,g-w,g+r .project_x.txt
+```
+
+Final permission: `-r--r-----`
+
+### 4) `drafts` directory
+
+Removed group execute permission so directory access is restricted to the owner only:
+
+```bash
+chmod g-x drafts
+```
+
+Final permission: `drwx------`
+
+![Directory Permission Changes](images/chmod-changes.png)
 
 ## Verification
 
-To verify the changes, I used the `ls -la` command:
+The final permission state was validated using `ls -la`:
 
 ![Final Permissions](images/final-permissions.png)
-
-The final permissions correctly matched the authorization requirements:
 
 ```text
 drwx------ drafts
@@ -72,8 +95,16 @@ drwx------ drafts
 -r--r----- .project_x.txt
 ```
 
----
+## Result
+
+The access model now follows the principle of least privilege. Sensitive files are no longer exposed to unnecessary users or groups, and the directory structure is restricted to the minimum required access level.
+
+## Tools Used
+
+- `ls -la` for viewing permissions
+- `chmod` for modifying file and directory permissions
+- Linux shell environment
 
 ## Summary
 
-By reviewing and modifying permissions for specific files and directories using `chmod`, I successfully restricted access to authorized users and groups only. This process ensured compliance with the organization's security policies and protected sensitive research data.
+This lab shows how careful permission management can improve system security and ensure compliance with organizational policies. By limiting access to only the necessary users and groups, the environment better protects confidential research data.
