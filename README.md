@@ -51,6 +51,8 @@ drwx--x--- drafts
    ```
    *Final Permissions:* `drwx------`
 
+![Drafts Directory](images/chmod-changes.png)
+
 ---
 
 ## Verification
